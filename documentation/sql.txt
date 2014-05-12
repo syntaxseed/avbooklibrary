@@ -1,0 +1,121 @@
+-- 
+-- Table structure for table `library`
+-- 
+
+CREATE TABLE `library` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL default '',
+  `author` varchar(200) NOT NULL default '',
+  `publisher` varchar(200) default NULL,
+  `isbn` varchar(20) default NULL,
+  `format` int(10) unsigned NOT NULL default '0',
+  `description` text,
+  `pages` int(10) unsigned default NULL,
+  `category` int(10) unsigned NOT NULL default '0',
+  `self_read` tinyint(3) unsigned default '0',
+  `self_loaned` varchar(255) default NULL,
+  `cover_sm` varchar(180) default NULL,
+  `cover_lrg` varchar(180) default NULL,
+  PRIMARY KEY  (`id`),
+  FULLTEXT KEY `searchindex` (`title`,`author`,`publisher`,`description`)
+) ENGINE=MyISAM;
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `library_category`
+-- 
+
+CREATE TABLE `library_category` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(200) NOT NULL default '',
+  `parent` int(10) unsigned NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=59 ;
+
+-- 
+-- Dumping data for table `library_category`
+-- 
+
+INSERT INTO `library_category` VALUES (1, 'All Books', 0);
+INSERT INTO `library_category` VALUES (2, 'Fiction', 1);
+INSERT INTO `library_category` VALUES (3, 'Science and Nature', 1);
+INSERT INTO `library_category` VALUES (4, 'Computers', 1);
+INSERT INTO `library_category` VALUES (5, 'Hobbies', 1);
+INSERT INTO `library_category` VALUES (6, 'Non-Fiction General', 1);
+INSERT INTO `library_category` VALUES (7, 'History', 1);
+INSERT INTO `library_category` VALUES (8, 'Arts, The', 1);
+INSERT INTO `library_category` VALUES (9, 'Health and Medicine', 1);
+INSERT INTO `library_category` VALUES (10, 'Business and Finance', 1);
+INSERT INTO `library_category` VALUES (11, 'Classic', 2);
+INSERT INTO `library_category` VALUES (12, 'Fantasy', 2);
+INSERT INTO `library_category` VALUES (13, 'Science Fiction', 2);
+INSERT INTO `library_category` VALUES (14, 'Horror', 2);
+INSERT INTO `library_category` VALUES (15, 'Poetry and Literature', 2);
+INSERT INTO `library_category` VALUES (16, 'Mystery', 2);
+INSERT INTO `library_category` VALUES (17, 'Fiction Misc.', 2);
+INSERT INTO `library_category` VALUES (18, 'Romance', 2);
+INSERT INTO `library_category` VALUES (19, 'Religion', 7);
+INSERT INTO `library_category` VALUES (20, 'Egypt', 7);
+INSERT INTO `library_category` VALUES (21, 'Ancient Civilizations', 7);
+INSERT INTO `library_category` VALUES (22, 'Canadian', 7);
+INSERT INTO `library_category` VALUES (23, 'North America', 7);
+INSERT INTO `library_category` VALUES (24, 'War', 7);
+INSERT INTO `library_category` VALUES (25, 'General History', 7);
+INSERT INTO `library_category` VALUES (26, 'Plants and Gardening', 3);
+INSERT INTO `library_category` VALUES (27, 'Science Misc.', 3);
+INSERT INTO `library_category` VALUES (28, 'Animals', 3);
+INSERT INTO `library_category` VALUES (29, 'Nature Misc.', 3);
+INSERT INTO `library_category` VALUES (30, 'Astronomy', 3);
+INSERT INTO `library_category` VALUES (31, 'Physics', 3);
+INSERT INTO `library_category` VALUES (32, 'Earth Sciences', 3);
+INSERT INTO `library_category` VALUES (33, 'Mathematics', 3);
+INSERT INTO `library_category` VALUES (34, 'Geography', 3);
+INSERT INTO `library_category` VALUES (35, 'Archaeology and Paleontology', 3);
+INSERT INTO `library_category` VALUES (36, 'Coins', 5);
+INSERT INTO `library_category` VALUES (37, 'Hobbies Misc.', 5);
+INSERT INTO `library_category` VALUES (38, 'Programming', 4);
+INSERT INTO `library_category` VALUES (39, 'Hardware & Networking', 4);
+INSERT INTO `library_category` VALUES (40, 'Software Reference Manuals', 4);
+INSERT INTO `library_category` VALUES (41, 'Computers Misc.', 4);
+INSERT INTO `library_category` VALUES (42, 'Databases', 4);
+INSERT INTO `library_category` VALUES (43, 'Programming Theory and Design', 4);
+INSERT INTO `library_category` VALUES (44, 'Non-Fiction Misc.', 6);
+INSERT INTO `library_category` VALUES (45, 'Arts Misc.', 8);
+INSERT INTO `library_category` VALUES (46, 'Health and Medicine Misc.', 9);
+INSERT INTO `library_category` VALUES (47, 'Accounting', 10);
+INSERT INTO `library_category` VALUES (48, 'Business Misc.', 10);
+INSERT INTO `library_category` VALUES (49, 'Holistic and Natural Health', 9);
+INSERT INTO `library_category` VALUES (50, 'Action / Adventure', 2);
+INSERT INTO `library_category` VALUES (51, 'Philosophy', 6);
+INSERT INTO `library_category` VALUES (52, 'Business Practice and Theory', 10);
+INSERT INTO `library_category` VALUES (53, 'Sales and Marketing', 10);
+INSERT INTO `library_category` VALUES (54, 'Entrepreneurship', 10);
+INSERT INTO `library_category` VALUES (55, 'Operations and Procedures', 10);
+INSERT INTO `library_category` VALUES (56, 'Personal Finance', 10);
+INSERT INTO `library_category` VALUES (57, 'Buddhism and Meditation', 6);
+INSERT INTO `library_category` VALUES (58, 'Investing', 10);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `library_format`
+-- 
+
+CREATE TABLE `library_format` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `short_name` varchar(30) NOT NULL default '',
+  `long_name` varchar(80) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 ;
+
+-- 
+-- Dumping data for table `library_format`
+-- 
+
+INSERT INTO `library_format` VALUES (1, 'PB', 'Paperback');
+INSERT INTO `library_format` VALUES (2, 'HC', 'Hardcover');
+INSERT INTO `library_format` VALUES (3, 'Audio', 'Audio');
+INSERT INTO `library_format` VALUES (4, 'Video', 'Video');
+
+-- --------------------------------------------------------
