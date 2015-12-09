@@ -29,6 +29,8 @@ define("VERSION", "1.3.2"); // Current version of AV Book Library.
 
 // ******* Configuration data for the library installation ********
 
+date_default_timezone_set('America/Toronto');
+ 
 // Paths
 define("LIBRARY_DIR", "/home/user/htdocs/library/");	// Server path to folder that the library is in.
 define("LIBRARY_WEB", "http://www.example.com/library/");	// Root url to the library.
