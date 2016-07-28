@@ -25,6 +25,7 @@ Project Info:   http://syntaxseed.com/project/avbooklibrary/
 CONTRIBUTORS:
 
 - Jan De Luyck
+- Scott Hampton
 
 
 LICENSE:
