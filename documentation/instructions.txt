@@ -1,0 +1,229 @@
+AV Book Library - Instructions And Info
+==============================================
+
+AUTHOR
+--------------
+Sherri Wheeler
+Email: sherri.wheeler at gmail.com
+Project Info: http://syntaxseed.com/project/avbooklibrary/
+
+REQUIREMENTS
+---------------------
+
+PHP v 5.0 or later.
+MySQL v 4.0.27 or later.
+The ability to make a directory writable by the web server, for use by the PHP copy() function.
+
+
+Features
+--------------------------------------
+
+- Record pertinent book information like title, author, publisher, ISBN, # pages, description, format, etc.
+- Add, edit, delete and browse your book entries all via the web interface in a secure admin.
+- Organize books into searchable categories and sub-categories.
+- Since your book collection is now online, you can easily reference it from anywhere, share it with friends or open viewing of it to the public.
+- Also provides a catalogue of your collection for insurance purposes if anything should happen to your books.
+- Can be easily adapted to a video (DVDs etc), or audio (CDs etc) collection.
+- Flag books as read, not read, and reading. Search based on this setting to find books you haven't read, etc.
+- Record if you have loaned out a book (name of the borrower).
+- Full searching of the database (with wildcards), output in list view with coloured indicator of read/not read/reading.
+- Pull cover images from Amazon(tm) and cache images to prevent repeated requests to Amazon.
+- Fill in the fields for adding a new book by fetching the book info from Amazon for quick book entry.
+- Optionally display book information from the Amazon Web Services api.
+- Only admins will see the read/not read info and the borrower info.
+- List all books in a given category or super-category.
+- Search results all on one page for easy finding (ctrl+f) and/or printing.
+- Pagination and sorting of search results.
+- Simple, clean, visually appealing design and user interface.
+- Code is so basic it makes for easy customizing.
+- No feature bloat like ecommerce or book checkout functionality.
+- Extremely easy to use.
+
+Install Instructions
+------------------------
+
+(See next section for upgrading.)
+
+  - Extract the program archive to your local machine. Note that there is a web-files/ directory. This is the only directory that gets uploaded to your webserver.
+  - Read: web-files/license.txt and web-files/license-gpl.txt. Make sure you agree with the terms before using this software.
+  - Create a MySQL database (or use an existing one) on your website. If you want to use a different database system, you can install ADODB(http://adodb.sourceforge.net/) to the lib/ directory and replace the lib/db.php file with the supplied db-adodb.php file (rename db-adodb.php to db.php) found in the support directory. Please note, the app has not been tested on anything other than MySQL.
+  - Use the sql in: SQL to create and populate the 3 required tables into your database.
+  - Upload the contents of the web-files/ directory (but not the directory itself) to your website (typically via ftp) to a directory called library/ or whatever you desire.
+  - Adjust the permissions (chmod) on the images/covers/lrg/ and images/covers/sm/ directories to enable the webserver user to write to these directories. Typcally 776 or 777 (use the strictest settings that will work). Some hosts run the webserver as the local account user so no adjustments are needed. Check with your hosting provider if you do not understand this step.
+  - In the database tables, edit the contents of the library_category table to add any categories you may need. All root categories have a parent of 1. If you want a sub-category to be beneath a root category (in a tree structure) then make the new sub-category's parent value equal the id of the parent category. Do not leave the parent values as blank or null. You can only have parent categories and sub-categories. No third tier is supported (yet).
+  - Edit the config.php file to add your database settings, paths and other settings. Also set your admin username and password. You need to enter the SHA1 hash of your password. Several online generators are available for you to easily get this value. For example: http://whatsmyip.org/hash_generator/
+  - If you set the AMAZON_ENABLED flag to true, then you must register for your own AMAZON_KEY by going to: http://aws.amazon.com/ and getting your own Access Key ID. (Not required for getting cover images).
+  - Visit your library admin area by visiting in a web browser the path to the admin directory, example: www.example.com/library/admin/ enter your login for this directory then begin adding and editing books.
+  - Browse your library as non-admins see it by visiting it at: www.example.com/library/
+  - You can customize the header image and text with the Photoshop document header.psd in the source/ directory.
+  - Contact me via SyntaxSeed.com and let me know if you are using it and how you like it. This is a request in the licence agreement!
+
+Upgrade Instructions
+------------------------
+
+General Upgrade Instructions
+
+Advanced users can use these instructions. See the sections below for specific instructions for individual versions.
+Backup your current library directory: specifically your database, config.php file and images/covers/ directory.
+Extract the new version and compare the config.php file to your version for differences. Add in any new config settings that are not in your config file.
+Upload the new web-files except for config.php and the images/covers/ directory. Upload your copy of config.php to which you have added any new settings. Make sure your images/covers/ are still up there.
+In general there are typically not any database changes so you don't have to re-run the sql.
+
+Upgrading Most Versions
+
+First, back up the following:
+ -Your library database table contents.
+ -Your config.php file.
+ -Your images/ directory (specifically your cached cover images).
+Double check that your backups you made in step 1 are complete and accessible.
+Extract the program archive to your local machine. Notice the web-files/ directory.
+Delete everything you currently have in your library directory on the web server (if you want you can leave the images/covers directory up there rather than re-uploading it later).
+Upload (ex: FTP) all the new web-files/ to your library directory.
+Replace the images/covers directory with the one from your backups (if you did not leave it up there).
+Note that some versions contain changes to the config file. Compare your backed up config file with the new one. Add in any new config options that you don't have in your copy. These are the options under Search Pagination Settings and a new option under the Amazon Web Services section.
+Replace the config.php file you uploaded with your copy from your backups (to which you have added the new settings).
+Or you can simply re-fill in the new config file with your settings if comparing them is too tricky.
+Do not run the SQL as instructed in the installation instructions. There are no changes to the database unless otherwise indicated in the release notes.
+That's it! You should be fully running now. If you experience any problems, double check that your config.php settings are correct.
+
+
+FAQ
+-------------
+
+Q. I've added a book, but the search isn't working.
+A. From the MySQL manual: "MySQL does not index any words less than or equal to 3 characters in length, nor does it index any words that appear in more than 50% of the rows. This means that if your table contains 2 or less rows, a search on a FULLTEXT index will never return anything."
+
+Q. How do I configure the book categories and formats?
+A. There is no admin for this yet. You will have to edit these in the database directly. Make sure that the parent field of a sub-category is the id of it's parent. You can have super categories and sub-categories, but not sub-sub-categories yet.
+
+Q. How do I use a database other than MySQL?
+A. I supply a copy of my db class (lib/db.php) that uses the database abstraction layer ADODB (http://adodb.sourceforge.net/) to connect to the database. All you have to do is replace web-files/lib/db.php with the file documentation/support/db-adodb.php (rename the file to db.php), and install ADODB to the lib directory so that you have the adodb directory at the same level as the new db.php file. You can now configure adodb to connect to other types of databases. See the ADODB documentation for further instructions. Please note however, that I have never tried using AV Book Library with anything other than MySQL.
+
+Q. How well does AV Book Library scale up to several hundred or thousands of books?
+A. I don't know yet. I've only been able to test it on my personal library to which I've added about two hundred of my books so far. If anyone has tried it with more books, please let me know! As of version 1.3, there is paging of search results which helps.
+
+Q. Why doesn't this program have features like book-checkout or ecommerce?
+A. This program is intended for small to medium size personal book collections, not professional libraries. I wanted to keep it free of bloat, and easy to customize.
+
+Q. How do I get AV Book Library to support a non-latin character set?
+A. The program has only been tested with a latin character set. However, you can try using UTF-8 by setting the character set of your database tables, and then add the following line at the end of the connect() function in the lib/db.php file:
+ mysql_set_charset('utf8', $this->dbc);
+
+Common Errors
+
+Q. I'm getting an MySQL socket error like:
+ "Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2) in /www/htdocs/avbook/lib/adodb/drivers/adodb-mysql.inc.php... "
+A. In the config, the value for $db_host must contain the path to your socket file if this is different than the usual default. Edit this config setting to contain YOUR path.. which might look something like this (check with your web hosting provider for details):
+ $db_host = "localhost:/tmp/mysql5.sock";
+
+Q. I'm getting a parse error in functions.php like:
+ Parse error: syntax error, unexpected '{' in /home/public_html/avbooklibrary/lib/functions.php on line 309 
+A. If the error is occurring at the line in which the try/catch block exists. Try commenting out the try/catch lines like so:
+//try{
+	$xml = file_get_contents($url);
+	$xmlob = simplexml_load_string($xml);
+//}catch(Exception $e){
+//	$xmlob = false;
+//}
+
+Q. I'm getting a Warning: file_get_contents() like:
+ Warning: file_get_contents() [function.file-get-contents]: URL file-access is disabled in the server configuration in 
+ /home/public_html/avbooklibrary/lib/functions.php on line 310
+A. You need to enable the PHP setting allow_url_fopen. Speak to your web hosting administrator or create a php.ini file in each of the directories (including the root) where there are php files and add this line to the php.ini file:
+ allow_url_fopen = on;
+
+ 
+Improvements Needed
+-------------------------
+
+Save search parameters to Session. Fix the re POST issue when you click Back or Refresh.
+UTF-8 Support
+Add the word 'zoom' and a magnifying-glass icon under the small cover image, if a large image exists.
+Move the caching of the cover images to the edit screen after saving. Show sm cover image on edit screen.
+Put the building of the amazon image urls into a function.
+Pre-populate with a more general set of book categories.
+Make object oriented?
+Touch-up the design / get a nicer graphic design.
+Admin for book categories.
+Misc clean up of code. Efficiency improvements.
+Tidy up the error messages. Redirect to home page.
+Separate output layer from logic layer.
+Make categories work with an arbitrary tree depth. Currently only works with 2 levels.
+Resize for 1024x768 min resolution. 800 is squishy.
+
+
+Known Bugs/Issues
+-------------------------
+
+  * Site uses form POSTs for search and search navigation. This results in a Page Expired warning when user hits Back button. Fix this.
+  * Some minor layout issues with pagination buttons. Too much space above and below in IE.
+
+  
+Contributions Needed
+-----------------------------
+
+I don't have a lot of time to work on this project, but I try to do releases once in a while and to slowly improve AV Book Library. If you're wondering how you can help, here are some tasks I'd love help with.
+
+Open Tasks
+
+- SQL for more generic categories. The current default SQL script is just my own categories. I need a more generic set. This should be fairly easy to do, but it would be a big help!
+- A new design - a new banner for the top and maybe spruce up the header/footer layout.
+- Admin for book categories: a section in the admin area for adding, deleting, sorting and renaming book categories.
+
+Submitting Patches and Help
+
+- Since the project is now in source control with Mercurial, the easiest way for you to work on and submit patches, is to use TortoiseHg to clone the central repository and then use it to generate a patch: http://tortoisehg.bitbucket.org/manual/1.0/patches.html
+- Please make your changes on the latest version!
+
+Supporting This Project
+-----------------------------
+
+There are a number of ways you can show your support or appreciation for AV Book Library:
+
+  * Contribute code, see: Contributions Needed.
+  * Find and/or fix bugs.
+  * Blog about it, or tell others about the project.
+  * Add a link to this project on your website.
+  * Contribute user documentation.
+  * Donate to the CCFA or CCFC (Crohn's And Colitis Foundation) and tell me about it. (I do not currently have a way to accept donations directly to me.)
+  * Canadians can support my charitable activities (www.brightsky.org) by shopping at Amazon via this special link: www.amazon.ca/?&tag=brightsky-20.
+
+
+Release Notes
+-------------------------
+
+Note: The latest version (including unreleased changes to date) can be found in the BitBucket Repo: https://bitbucket.org/avinus/av-book-library/
+
+===== V 1.3.2 (Released - Dec 9, 2015) =====
+
+  * Fix deprecated PHP functions.
+  * Fix DB abstraction class
+
+===== V 1.3.1 (Released - Feb 22, 2013) =====
+  *  ! Config file changes for this release!
+  * Amazon Web Services feature bug fixed. You must now put your Associate Tag in the Config file!
+  * Fixed stripslashes on search term.
+  * Added version number to config file.
+  * Added an About page to the admin.
+  * Changed footer link.
+  * This update contains NO database changes. Contains TWO config file changes.
+
+===== V 1.3.0 & Prior =====
+  
+V 1.3.0
+ ! Config file changes for this release!
+Paging of search results.
+Sorting of results by click on column header.
+Update to now use signed request for Amazon Web Services. Old method is discontinued.
+
+V 1.2.1
+Fix bug in Fetching info from Amazon for add book page (admin/add.php). Invalid argument to foreach.
+The only file changed is admin/add.php.
+
+V 1.2
+Logo/banner links back to public library home page.
+Moved the save/update admin functions to a new functions file in the lib directory.
+Javascript validation of required fields.
+Button to fetch book info from Amazon and populate the fields for the Add Book page.
+Implemented Patch # 2799581
+Special thanks to patch contributer Jan De Luyck.
