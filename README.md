@@ -30,6 +30,7 @@ Project Info:   http://syntaxseed.com/project/avbooklibrary/
 CONTRIBUTORS:
 
 - Jan De Luyck
+- Scott Hampton
 
 
 LICENSE:
@@ -39,6 +40,6 @@ See: web-files/license.txt and web-files/license-gpl.txt
 
 INSTALL AND UPGRADE INSTRUCTIONS:
 
-For all documentation including FAQ and install or upgrade instructions, please visit the project website for the latest information:
+For all documentation including FAQ and install or upgrade instructions, refer to the included documentation directory for the latest information.
 
-http://syntaxseed.com/project/avbooklibrary/
+
