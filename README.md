@@ -1,6 +1,10 @@
 AV Book Library - About and Information
 --------------------------------------------------------------------------------------
 
+* IMPORTANT: THIS PROJECT IS ABANDONED / OUT OF DATE.
+* (I may write a new version in the future.)
+
+
 AV Book Library version: 1.3.2 (September, 2013)
 
 
@@ -9,15 +13,16 @@ AV Book Library version: 1.3.2 (September, 2013)
 
 REQUIREMENTS:
 
--PHP v 5.0 or later. 
--MySQL v 4.0.27 or later. 
--The ability to make a directory writable by the web server, for use by the PHP copy() function. 
+- PHP v 5.0 or later.
+- MySQL v 4.0.27 or later.
+- The ability to make a directory writable by the web server, for use by the PHP copy() function.
 
 
 AUTHOR:
 
-Sherri Wheeler  (www.Start.OfItAll.com)
-Email: avdeveloper at users dot sourceforge dot net
+Sherri Wheeler
+
+Email: sherri dot syntaxseed at ofitall dot com
 
 Project Info:   http://syntaxseed.com/project/avbooklibrary/
 
@@ -37,5 +42,3 @@ INSTALL AND UPGRADE INSTRUCTIONS:
 For all documentation including FAQ and install or upgrade instructions, please visit the project website for the latest information:
 
 http://syntaxseed.com/project/avbooklibrary/
-
-
