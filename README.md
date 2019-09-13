@@ -5,6 +5,8 @@ AV Book Library - About and Information
 * Last tested on PHP v 5.6.
 * (I may write a new version in the future.)
 
+AV Book Library is a very simple online book library database application. It allows you to store your book information under categories (like: Fiction, Health, etc) along with the key book details like title, author, publisher, ISBN, pages, whether you have read it or not, whether you've loaned it to someone, a description of the book, etc.
+
 AV Book Library version: 1.3.2 (September, 2013)
 
 ** Visit the project website for all documentation! (http://syntaxseed.com/project/avbooklibrary/) **
