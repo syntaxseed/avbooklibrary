@@ -44,11 +44,11 @@ Install Instructions
 
 (See next section for upgrading.)
 
-  - Extract the program archive to your local machine. Note that there is a web-files/ directory. This is the only directory that gets uploaded to your webserver.
-  - Read: web-files/license.txt and web-files/license-gpl.txt. Make sure you agree with the terms before using this software.
+  - Extract the program archive to your local machine. Note that there is a public/ directory. This is the only directory that gets uploaded to your webserver.
+  - Read: public/license.txt and public/license-gpl.txt. Make sure you agree with the terms before using this software.
   - Create a MySQL database (or use an existing one) on your website. If you want to use a different database system, you can install ADODB(http://adodb.sourceforge.net/) to the lib/ directory and replace the lib/db.php file with the supplied db-adodb.php file (rename db-adodb.php to db.php) found in the support directory. Please note, the app has not been tested on anything other than MySQL.
   - Use the sql in: SQL to create and populate the 3 required tables into your database.
-  - Upload the contents of the web-files/ directory (but not the directory itself) to your website (typically via ftp) to a directory called library/ or whatever you desire.
+  - Upload the contents of the public/ directory (but not the directory itself) to your website (typically via ftp) to a directory called library/ or whatever you desire.
   - Adjust the permissions (chmod) on the images/covers/lrg/ and images/covers/sm/ directories to enable the webserver user to write to these directories. Typcally 776 or 777 (use the strictest settings that will work). Some hosts run the webserver as the local account user so no adjustments are needed. Check with your hosting provider if you do not understand this step.
   - In the database tables, edit the contents of the library_category table to add any categories you may need. All root categories have a parent of 1. If you want a sub-category to be beneath a root category (in a tree structure) then make the new sub-category's parent value equal the id of the parent category. Do not leave the parent values as blank or null. You can only have parent categories and sub-categories. No third tier is supported (yet).
   - Edit the config.php file to add your database settings, paths and other settings. Also set your admin username and password. You need to enter the SHA1 hash of your password. Several online generators are available for you to easily get this value. For example: http://whatsmyip.org/hash_generator/
@@ -66,7 +66,7 @@ General Upgrade Instructions
 Advanced users can use these instructions. See the sections below for specific instructions for individual versions.
 Backup your current library directory: specifically your database, config.php file and images/covers/ directory.
 Extract the new version and compare the config.php file to your version for differences. Add in any new config settings that are not in your config file.
-Upload the new web-files except for config.php and the images/covers/ directory. Upload your copy of config.php to which you have added any new settings. Make sure your images/covers/ are still up there.
+Upload the new public except for config.php and the images/covers/ directory. Upload your copy of config.php to which you have added any new settings. Make sure your images/covers/ are still up there.
 In general there are typically not any database changes so you don't have to re-run the sql.
 
 Upgrading Most Versions
@@ -76,9 +76,9 @@ First, back up the following:
  -Your config.php file.
  -Your images/ directory (specifically your cached cover images).
 Double check that your backups you made in step 1 are complete and accessible.
-Extract the program archive to your local machine. Notice the web-files/ directory.
+Extract the program archive to your local machine. Notice the public/ directory.
 Delete everything you currently have in your library directory on the web server (if you want you can leave the images/covers directory up there rather than re-uploading it later).
-Upload (ex: FTP) all the new web-files/ to your library directory.
+Upload (ex: FTP) all the new public/ to your library directory.
 Replace the images/covers directory with the one from your backups (if you did not leave it up there).
 Note that some versions contain changes to the config file. Compare your backed up config file with the new one. Add in any new config options that you don't have in your copy. These are the options under Search Pagination Settings and a new option under the Amazon Web Services section.
 Replace the config.php file you uploaded with your copy from your backups (to which you have added the new settings).
@@ -97,7 +97,7 @@ Q. How do I configure the book categories and formats?
 A. There is no admin for this yet. You will have to edit these in the database directly. Make sure that the parent field of a sub-category is the id of it's parent. You can have super categories and sub-categories, but not sub-sub-categories yet.
 
 Q. How do I use a database other than MySQL?
-A. I supply a copy of my db class (lib/db.php) that uses the database abstraction layer ADODB (http://adodb.sourceforge.net/) to connect to the database. All you have to do is replace web-files/lib/db.php with the file documentation/support/db-adodb.php (rename the file to db.php), and install ADODB to the lib directory so that you have the adodb directory at the same level as the new db.php file. You can now configure adodb to connect to other types of databases. See the ADODB documentation for further instructions. Please note however, that I have never tried using AV Book Library with anything other than MySQL.
+A. I supply a copy of my db class (lib/db.php) that uses the database abstraction layer ADODB (http://adodb.sourceforge.net/) to connect to the database. All you have to do is replace public/lib/db.php with the file documentation/support/db-adodb.php (rename the file to db.php), and install ADODB to the lib directory so that you have the adodb directory at the same level as the new db.php file. You can now configure adodb to connect to other types of databases. See the ADODB documentation for further instructions. Please note however, that I have never tried using AV Book Library with anything other than MySQL.
 
 Q. How well does AV Book Library scale up to several hundred or thousands of books?
 A. I don't know yet. I've only been able to test it on my personal library to which I've added about two hundred of my books so far. If anyone has tried it with more books, please let me know! As of version 1.3, there is paging of search results which helps.
@@ -117,7 +117,7 @@ A. In the config, the value for $db_host must contain the path to your socket fi
  $db_host = "localhost:/tmp/mysql5.sock";
 
 Q. I'm getting a parse error in functions.php like:
- Parse error: syntax error, unexpected '{' in /home/public_html/avbooklibrary/lib/functions.php on line 309 
+ Parse error: syntax error, unexpected '{' in /home/public_html/avbooklibrary/lib/functions.php on line 309
 A. If the error is occurring at the line in which the try/catch block exists. Try commenting out the try/catch lines like so:
 //try{
 	$xml = file_get_contents($url);
@@ -127,12 +127,12 @@ A. If the error is occurring at the line in which the try/catch block exists. Tr
 //}
 
 Q. I'm getting a Warning: file_get_contents() like:
- Warning: file_get_contents() [function.file-get-contents]: URL file-access is disabled in the server configuration in 
+ Warning: file_get_contents() [function.file-get-contents]: URL file-access is disabled in the server configuration in
  /home/public_html/avbooklibrary/lib/functions.php on line 310
 A. You need to enable the PHP setting allow_url_fopen. Speak to your web hosting administrator or create a php.ini file in each of the directories (including the root) where there are php files and add this line to the php.ini file:
  allow_url_fopen = on;
 
- 
+
 Improvements Needed
 -------------------------
 
@@ -158,7 +158,7 @@ Known Bugs/Issues
   * Site uses form POSTs for search and search navigation. This results in a Page Expired warning when user hits Back button. Fix this.
   * Some minor layout issues with pagination buttons. Too much space above and below in IE.
 
-  
+
 Contributions Needed
 -----------------------------
 
@@ -209,7 +209,7 @@ Note: The latest version (including unreleased changes to date) can be found in 
   * This update contains NO database changes. Contains TWO config file changes.
 
 ===== V 1.3.0 & Prior =====
-  
+
 V 1.3.0
  ! Config file changes for this release!
 Paging of search results.
